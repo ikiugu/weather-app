@@ -6,5 +6,5 @@ package com.ikiugu.weather.domain
   
 data class ScreenWeather(
     val temp : Double,
-    val description: String
+    val weatherId: Long
 )

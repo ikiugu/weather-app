@@ -22,16 +22,60 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     val currentWeatherTemp = weatherRepository.currWeather
 
     val weatherIcon: LiveData<Int> = Transformations.map(currentWeatherTemp) {
-        when (it.description) {
-            "Clouds" -> R.drawable.sea_cloudy
-            else -> R.drawable.sea_sunnypng
+        when (it.weatherId) {
+            in 200L..299L -> {
+                R.drawable.sea_rainy
+            }
+            in 300L..399L -> {
+                R.drawable.sea_rainy
+            }
+            in 500L..599L -> {
+                R.drawable.sea_rainy
+            }
+            in 600L..699L -> {
+                R.drawable.sea_cloudy
+            }
+            in 700L..799L -> {
+                R.drawable.sea_cloudy
+            }
+            800L -> {
+                R.drawable.sea_sunnypng
+            }
+            in 801L..804L -> {
+                R.drawable.sea_cloudy
+            }
+            else -> {
+                R.drawable.sea_sunnypng
+            }
         }
     }
 
     val weatherText: LiveData<String> = Transformations.map(currentWeatherTemp) {
-        when (it.description) {
-            "Clouds" -> "Cloudy".uppercase()
-            else -> "Sunny".uppercase()
+        when (it.weatherId) {
+            in 200L..299L -> {
+                "Rainy".uppercase()
+            }
+            in 300L..399L -> {
+                "Rainy".uppercase()
+            }
+            in 500L..599L -> {
+                "Rainy".uppercase()
+            }
+            in 600L..699L -> {
+                "Cloudy".uppercase()
+            }
+            in 700L..799L -> {
+                "Cloudy".uppercase()
+            }
+            800L -> {
+                "Sunny".uppercase()
+            }
+            in 801L..804L -> {
+                "Cloudy".uppercase()
+            }
+            else -> {
+                "Sunny".uppercase()
+            }
         }
     }
 
@@ -39,6 +83,8 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         application.applicationContext.resources.getColor(
             when (it) {
                 "Cloudy".uppercase() -> R.color.cloudy
+                "Rainy".uppercase() -> R.color.rainy
+                "Sunny".uppercase() -> R.color.sunny
                 else -> R.color.sunny
             }
         )

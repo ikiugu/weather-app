@@ -14,8 +14,7 @@ data class CurrentWeather constructor(
     val id: Long,
     val name: String,
     val temperature: Double,
-    val weatherName: String,
-    val weatherDescription: String,
+    val weatherId: Long,
     val latitude: Double,
     val longitude: Double,
     val created: Long = System.currentTimeMillis(),
@@ -24,7 +23,7 @@ data class CurrentWeather constructor(
         fun CurrentWeather.asDomainModel(): ScreenWeather {
             return ScreenWeather(
                 temp = this.temperature,
-                description = this.weatherName
+                weatherId = this.weatherId
             )
         }
     }

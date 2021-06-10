@@ -14,7 +14,7 @@ import retrofit2.http.GET
 
 interface WeatherService {
 
-    @GET("weather?q=London&units=metric&appid=f9f3de845b9635080901d5575af1bb27")
+    @GET("weather?q=Nairobi&units=metric&appid=f9f3de845b9635080901d5575af1bb27")
     fun getCurrentWeather() : Deferred<CurrentWeatherDTO>
 
     @GET("forecast/daily?q=London&appid=f9f3de845b9635080901d5575af1bb27&units=metric&cnt=6")

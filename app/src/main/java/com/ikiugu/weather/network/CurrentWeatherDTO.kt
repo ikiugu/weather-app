@@ -24,8 +24,7 @@ data class CurrentWeatherDTO(
                 id = this.id,
                 name = this.name,
                 temperature = this.main.temp,
-                weatherName = this.weather[0].main,
-                weatherDescription = this.weather[0].description,
+                weatherId = this.weather[0].id,
                 latitude = this.coord.lat,
                 longitude = this.coord.lon
             )
