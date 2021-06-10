@@ -6,8 +6,10 @@ package com.ikiugu.weather.ui.home
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.viewModelScope
 import com.ikiugu.weather.database.getDatabase
 import com.ikiugu.weather.repository.WeatherRepository
+import kotlinx.coroutines.launch
 
 class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -16,10 +18,10 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     val currentWeatherTemp = weatherRepository.currWeather
 
-    /*init {
+    init {
         viewModelScope.launch {
             weatherRepository.getCurrentWeather()
         }
-    }*/
+    }
 
 }

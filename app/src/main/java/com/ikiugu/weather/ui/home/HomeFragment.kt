@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -35,11 +34,8 @@ class HomeFragment : Fragment() {
         homeViewModel =
             ViewModelProvider(this).get(HomeViewModel::class.java)
 
-        homeViewModel.currentWeatherTemp.observe(viewLifecycleOwner, { weather ->
-           if(weather != null) {
-               Toast.makeText(context, "The current weather is ${weather.temp}", Toast.LENGTH_SHORT).show()
-           }
-        })
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = homeViewModel
 
         (activity as MainActivity).handleAppAndStatusBar()
 
