@@ -29,7 +29,8 @@ class HomeFragment : Fragment() {
             inflater,
             R.layout.fragment_home,
             container,
-            false)
+            false
+        )
 
         homeViewModel =
             ViewModelProvider(this).get(HomeViewModel::class.java)
@@ -37,7 +38,12 @@ class HomeFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = homeViewModel
 
-        (activity as MainActivity).handleAppAndStatusBar()
+        homeViewModel.appColors.observe(viewLifecycleOwner) { color ->
+            if (color != null) {
+                (activity as MainActivity).handleAppAndStatusBar(color)
+            }
+        }
+
 
 
         return binding.root

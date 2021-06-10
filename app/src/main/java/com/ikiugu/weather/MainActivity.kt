@@ -4,7 +4,6 @@ package com.ikiugu.weather
  * Created by Alfred Ikiugu on 09/06/2021
  */
 
-import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
@@ -46,7 +45,7 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        handleAppAndStatusBar()
+        handleAppAndStatusBar(R.color.sunny)
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -54,12 +53,12 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
-    fun handleAppAndStatusBar() {
+    fun handleAppAndStatusBar(color: Int) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.statusBarColor = Color.parseColor("#F1BA16")
+            window.statusBarColor = color
         }
 
-        val colorDrawable = ColorDrawable(Color.parseColor("#F1BA16"))
+        val colorDrawable = ColorDrawable(color)
         supportActionBar?.setBackgroundDrawable(colorDrawable)
         supportActionBar?.elevation = 0F
         supportActionBar?.title =""

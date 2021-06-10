@@ -23,7 +23,8 @@ data class CurrentWeather constructor(
     companion object {
         fun CurrentWeather.asDomainModel(): ScreenWeather {
             return ScreenWeather(
-                temp = this.temperature
+                temp = this.temperature,
+                description = this.weatherName
             )
         }
     }

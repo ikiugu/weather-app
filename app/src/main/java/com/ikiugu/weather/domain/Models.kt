@@ -5,5 +5,6 @@ package com.ikiugu.weather.domain
  */
   
 data class ScreenWeather(
-    val temp : Double
+    val temp : Double,
+    val description: String
 )
