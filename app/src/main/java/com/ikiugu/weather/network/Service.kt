@@ -34,5 +34,5 @@ object Network {
         .addCallAdapterFactory(CoroutineCallAdapterFactory())
         .build()
 
-    val weather = retrofit.create(WeatherService::class.java)
+    val weather: WeatherService = retrofit.create(WeatherService::class.java)
 }

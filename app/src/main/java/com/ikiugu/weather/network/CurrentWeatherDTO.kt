@@ -6,15 +6,32 @@ import com.squareup.moshi.JsonClass
  * Created by Alfred Ikiugu on 10/06/2021
  */
 
+/*@JsonClass(generateAdapter = true)
+data class CurrentWeather(val current: CurrentWeatherDTO)*/
 
 @JsonClass(generateAdapter = true)
 data class CurrentWeatherDTO(
+    val coord: Coord,
     val weather: List<Weather>,
     val main: Main,
     val timezone: Long,
     val name: String,
     val id: Long
-)
+) {
+    companion object {
+        fun CurrentWeatherDTO.asDatabaseModel(): com.ikiugu.weather.database.CurrentWeather {
+            return com.ikiugu.weather.database.CurrentWeather(
+                id = this.id,
+                name = this.name,
+                temperature = this.main.temp,
+                weatherName = this.weather[0].main,
+                weatherDescription = this.weather[0].description,
+                latitude = this.coord.lat,
+                longitude = this.coord.lon
+            )
+        }
+    }
+}
 
 @JsonClass(generateAdapter = true)
 data class Main(
@@ -32,4 +49,9 @@ data class Weather(
     val main: String,
     val description: String,
     val icon: String
+)
+
+data class Coord(
+    val lon: Double,
+    val lat: Double
 )

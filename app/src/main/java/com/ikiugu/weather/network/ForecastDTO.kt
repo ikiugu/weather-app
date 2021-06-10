@@ -19,17 +19,17 @@ data class ForecastDTO (
 data class City (
     val id: Long,
     val name: String,
-    val coord: Coord,
+    /*val coord: Coord,*/
     val country: String,
     val population: Long,
     val timezone: Long
 )
 
-@JsonClass(generateAdapter = true)
+/*@JsonClass(generateAdapter = true)
 data class Coord (
     val lon: Double,
     val lat: Double
-)
+)*/
 
 @JsonClass(generateAdapter = true)
 data class ListElement (
