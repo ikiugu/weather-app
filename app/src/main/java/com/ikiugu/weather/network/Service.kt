@@ -7,6 +7,7 @@ import kotlinx.coroutines.Deferred
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 /**
  * Created by Alfred Ikiugu on 09/06/2021
@@ -14,11 +15,16 @@ import retrofit2.http.GET
 
 interface WeatherService {
 
-    @GET("weather?q=Nairobi&units=metric&appid=f9f3de845b9635080901d5575af1bb27")
-    fun getCurrentWeather() : Deferred<CurrentWeatherDTO>
+    @GET("data/2.5/weather")
+    fun getCurrentWeather(
+        @Query("lat") latitude: Double,
+        @Query("lon") longitude: Double,
+        @Query("units") units: String = "metric",
+        @Query("appid") appId: String = "f9f3de845b9635080901d5575af1bb27"
+    ): Deferred<CurrentWeatherDTO>
 
     @GET("forecast/daily?q=London&appid=f9f3de845b9635080901d5575af1bb27&units=metric&cnt=6")
-    fun getWeatherForecast() : Deferred<ForecastDTO>
+    fun getWeatherForecast(): Deferred<ForecastDTO>
 
 
 }
@@ -29,7 +35,7 @@ private val moshi = Moshi.Builder()
 
 object Network {
     private val retrofit = Retrofit.Builder()
-        .baseUrl("http://api.openweathermap.org/data/2.5/")
+        .baseUrl("http://api.openweathermap.org/")
         .addConverterFactory(MoshiConverterFactory.create(moshi))
         .addCallAdapterFactory(CoroutineCallAdapterFactory())
         .build()

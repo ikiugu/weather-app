@@ -5,14 +5,14 @@ package com.ikiugu.weather.ui.home
  */
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.ikiugu.weather.R
 import com.ikiugu.weather.database.getDatabase
 import com.ikiugu.weather.repository.WeatherRepository
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+
+data class Location(val latitude: Double, val longitude: Double)
 
 class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -22,7 +22,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     val currentWeatherTemp = weatherRepository.currWeather
 
     val weatherIcon: LiveData<Int> = Transformations.map(currentWeatherTemp) {
-        when (it.weatherId) {
+        when (it?.weatherId) {
             in 200L..299L -> {
                 R.drawable.sea_rainy
             }
@@ -51,7 +51,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     val weatherText: LiveData<String> = Transformations.map(currentWeatherTemp) {
-        when (it.weatherId) {
+        when (it?.weatherId) {
             in 200L..299L -> {
                 "Rainy".uppercase()
             }
@@ -90,9 +90,19 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         )
     }
 
-    init {
+    var location = MutableLiveData<Location>()
+
+    /*init {
         viewModelScope.launch {
             weatherRepository.getCurrentWeather()
+        }
+    }*/
+
+    init {
+        viewModelScope.launch {
+            location.asFlow().collect { location ->
+                weatherRepository.getCurrentWeather(location.latitude, location.longitude)
+            }
         }
     }
 
