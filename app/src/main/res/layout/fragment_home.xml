@@ -34,7 +34,7 @@
             android:text="@{@string/degree_text(String.valueOf(viewModel.currentWeatherTemp.temp))}"
             android:textColor="@color/white"
             android:textSize="40sp"
-            app:hideTextViewIfNull="@{viewModel.currentWeatherTemp}"
+            app:hideViewIfNull="@{viewModel.currentWeatherTemp}"
             app:layout_constraintBottom_toTopOf="@+id/textView3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.55"
@@ -52,7 +52,7 @@
             android:textColor="@color/white"
             android:textSize="50sp"
             app:showCorrectText="@{viewModel.weatherText}"
-            app:hideTextViewIfNull="@{viewModel.currentWeatherTemp}"
+            app:hideViewIfNull="@{viewModel.currentWeatherTemp}"
             app:layout_constraintBottom_toBottomOf="@+id/weatherStatusImage"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.55"
@@ -65,83 +65,75 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/weatherStatusImage">
-
-            <!-- row 2 -->
+            
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:background="@color/black"
+                app:hideViewIfNull="@{viewModel.currentWeatherTemp}"
                 android:weightSum="3">
 
-                <!-- col 1 -->
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:gravity="center"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="#aaaaaa"
                         android:padding="8dp"
-                        android:text="TextView1" />
+                        android:text="@{@string/degree_text(String.valueOf(viewModel.currentWeatherTemp.minTemp))}" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="#cccccc"
                         android:padding="8dp"
-                        android:text="TextView1A" />
+                        android:text="@string/temperature_min" />
                 </LinearLayout>
-                <!-- col 1 end -->
-                <!-- col 2 -->
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:gravity="center"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="#bbbbbb"
                         android:padding="8dp"
-                        android:text="TextView2" />
+                        android:text="@{@string/degree_text(String.valueOf(viewModel.currentWeatherTemp.temp))}" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="#dddddd"
                         android:padding="8dp"
-                        android:text="TextView2A" />
+                        android:text="@string/temperature_current" />
                 </LinearLayout>
-                <!-- col 2 end -->
-                <!-- col 3 -->
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:gravity="center"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="#cccccc"
                         android:padding="8dp"
-                        android:text="TextView3" />
+                        android:textAlignment="center"
+                        android:text="@{@string/degree_text(String.valueOf(viewModel.currentWeatherTemp.maxTemp))}" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="#eeeeee"
                         android:padding="8dp"
-                        android:text="TextView3A" />
+                        android:text="@string/temperature_max" />
                 </LinearLayout>
             </LinearLayout>
 

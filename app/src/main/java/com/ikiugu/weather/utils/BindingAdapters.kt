@@ -9,8 +9,8 @@ import androidx.databinding.BindingAdapter
  * Created by Alfred Ikiugu on 10/06/2021
  */
 
-@BindingAdapter("hideTextViewIfNull")
-fun hideTextViewIfNull(view: View, it: Any?) {
+@BindingAdapter("hideViewIfNull")
+fun hideViewIfNull(view: View, it: Any?) {
     view.visibility = if (it != null) View.VISIBLE else View.GONE
 }
 

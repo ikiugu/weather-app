@@ -10,4 +10,7 @@
     <string name="menu_home">Home</string>
     <string name="menu_favorites">Favorites</string>
     <string name="degree_text">%s \u00B0</string>
+    <string name="temperature_min">min</string>
+    <string name="temperature_current">Current</string>
+    <string name="temperature_max">max</string>
 </resources>
