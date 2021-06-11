@@ -34,7 +34,7 @@ class WeatherRepository(private val weatherDatabase: WeatherDatabase) {
         withContext(Dispatchers.IO) {
             val weather =
                 Network.weather.getCurrentWeather(lat, lon).await()
-            weatherDatabase.weatherDao.insertWeather(weather.asDatabaseModel())
+            weatherDatabase.weatherDao.upsert(weather.asDatabaseModel())
         }
 
         _finishedLoading.value = true

@@ -19,7 +19,7 @@ data class CurrentWeather constructor(
     val weatherId: Long,
     val latitude: Double,
     val longitude: Double,
-    val favorite: Boolean? = null,
+    var favorite: Boolean? = null,
     val created: Long = System.currentTimeMillis(),
 ) {
     companion object {
