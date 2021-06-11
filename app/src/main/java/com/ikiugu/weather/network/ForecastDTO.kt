@@ -1,5 +1,6 @@
 package com.ikiugu.weather.network
 
+import com.ikiugu.weather.database.Forecast
 import com.squareup.moshi.JsonClass
 
 /**
@@ -7,70 +8,46 @@ import com.squareup.moshi.JsonClass
  */
 
 @JsonClass(generateAdapter = true)
-data class ForecastDTO (
+data class ForecastDTO(
     val city: City,
-    val cod: String,
-    val message: Double,
-    val cnt: Long,
     val list: List<ListElement>
-)
+) {
+    companion object {
+        fun ForecastDTO.asDatabaseModel(): Array<Forecast> {
+            return list.map {
+                Forecast(
+                    dt = it.dt,
+                    temp = it.temp.day,
+                    weatherId = it.weather[0].id,
+                    cityName = city.name
+                )
+            }.toTypedArray()
+        }
+    }
+}
 
 @JsonClass(generateAdapter = true)
-data class City (
-    val id: Long,
+data class City(
     val name: String,
-    /*val coord: Coord,*/
-    val country: String,
-    val population: Long,
-    val timezone: Long
 )
 
-/*@JsonClass(generateAdapter = true)
-data class Coord (
-    val lon: Double,
-    val lat: Double
-)*/
 
 @JsonClass(generateAdapter = true)
-data class ListElement (
+data class ListElement(
     val dt: Long,
-    val sunrise: Long,
-    val sunset: Long,
     val temp: Temp,
-    val feels_like: FeelsLike,
-    val pressure: Long,
-    val humidity: Long,
-    val weather: List<WeatherItem>,
-    val speed: Double,
-    val deg: Long,
-    val gust: Double,
-    val clouds: Long,
-    val pop: Double,
-    val rain: Double? = null
+    val weather: List<WeatherItem>
+)
+
+
+@JsonClass(generateAdapter = true)
+data class Temp(
+    val day: Double
 )
 
 @JsonClass(generateAdapter = true)
-data class FeelsLike (
-    val day: Double,
-    val night: Double,
-    val eve: Double,
-    val morn: Double
+data class WeatherItem(
+    val id: Long
 )
 
-@JsonClass(generateAdapter = true)
-data class Temp (
-    val day: Double,
-    val min: Double,
-    val max: Double,
-    val night: Double,
-    val eve: Double,
-    val morn: Double
-)
 
-@JsonClass(generateAdapter = true)
-data class WeatherItem (
-    val id: Long,
-    val main: String,
-    val description: String,
-    val icon: String
-)

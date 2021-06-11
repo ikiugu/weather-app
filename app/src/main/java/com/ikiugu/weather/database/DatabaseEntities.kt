@@ -36,3 +36,11 @@ data class CurrentWeather constructor(
     }
 }
 
+@Entity(tableName = "forecast")
+data class Forecast constructor(
+    @PrimaryKey
+    val dt : Long,
+    val cityName: String,
+    val temp : Double,
+    val weatherId: Long
+)

@@ -127,6 +127,10 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                 weatherRepository.getCurrentWeather(location.latitude, location.longitude)
             }
         }
+
+        viewModelScope.launch {
+            weatherRepository.getWeatherForecast()
+        }
     }
 
 

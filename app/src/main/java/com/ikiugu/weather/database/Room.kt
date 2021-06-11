@@ -27,7 +27,7 @@ interface WeatherDao {
     @Transaction
     fun upsert(entity: CurrentWeather) {
         val weather = getCurrentWeatherWithId(entity.id)
-        if(weather != null) {
+        if (weather != null) {
             entity.favorite = weather.favorite
             updateCurrentWeather(entity)
         } else {
@@ -35,10 +35,12 @@ interface WeatherDao {
         }
     }
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(vararg weatherItems: Forecast)
 }
 
 
-@Database(entities = [CurrentWeather::class], version = 1)
+@Database(entities = [CurrentWeather::class, Forecast::class], version = 1)
 abstract class WeatherDatabase : RoomDatabase() {
     abstract val weatherDao: WeatherDao
 }

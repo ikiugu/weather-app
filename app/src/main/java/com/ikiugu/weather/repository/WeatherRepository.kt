@@ -7,6 +7,7 @@ import com.ikiugu.weather.database.CurrentWeather.Companion.asDomainModel
 import com.ikiugu.weather.database.WeatherDatabase
 import com.ikiugu.weather.domain.ScreenWeather
 import com.ikiugu.weather.network.CurrentWeatherDTO.Companion.asDatabaseModel
+import com.ikiugu.weather.network.ForecastDTO.Companion.asDatabaseModel
 import com.ikiugu.weather.network.Network
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -43,8 +44,10 @@ class WeatherRepository(private val weatherDatabase: WeatherDatabase) {
     suspend fun getWeatherForecast() {
         withContext(Dispatchers.IO) {
             val forecast = Network.weather.getWeatherForecast().await()
-            _finishedLoading.value = true
+            weatherDatabase.weatherDao.insertAll(*forecast.asDatabaseModel())
         }
+
+        _finishedLoading.value = true
     }
 
     suspend fun updateWeather() {
