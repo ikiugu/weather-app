@@ -146,6 +146,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     fun refreshWeather() {
         viewModelScope.launch {
             weatherRepository.getCurrentWeather(location.value?.latitude, location.value?.longitude)
+            weatherRepository.getWeatherForecast(location.value?.latitude, location.value?.longitude)
         }
     }
 
