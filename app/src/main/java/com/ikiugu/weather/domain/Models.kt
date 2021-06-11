@@ -5,8 +5,10 @@ package com.ikiugu.weather.domain
  */
 
 data class ScreenWeather(
+    val id: Long,
     val minTemp : Double,
     val temp : Double,
     val maxTemp : Double,
-    val weatherId: Long
+    val weatherId: Long,
+    val favorite : Boolean
 )

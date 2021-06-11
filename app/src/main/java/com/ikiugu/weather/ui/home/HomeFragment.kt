@@ -32,6 +32,7 @@ class HomeFragment : Fragment() {
     private lateinit var locationRequest: LocationRequest
     private val UPDATE_INTERVAL = (10 * 1000 /* 10 secs */).toLong()
     private val FASTEST_INTERVAL: Long = 2000 /* 2 sec */
+    private lateinit var mMenu: Menu
 
 
     override fun onCreateView(
@@ -77,6 +78,10 @@ class HomeFragment : Fragment() {
                     Snackbar.LENGTH_SHORT
                 ).show()
             }
+        }
+
+        homeViewModel.favorite.observe(viewLifecycleOwner) { favorite ->
+            changeIcon(favorite)
         }
 
         enableLocation()
@@ -215,6 +220,9 @@ class HomeFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.main, menu)
+
+        mMenu = menu
+
         return super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -227,9 +235,22 @@ class HomeFragment : Fragment() {
                     enableLocation()
                 }
             }
+
+            R.id.action_favorite -> homeViewModel.updateWeatherItemToFavorites()
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    fun changeIcon(favorite: Boolean) {
+        if (this::mMenu.isInitialized) {
+            var menuItem = mMenu.findItem(R.id.action_favorite)
+            if(favorite) {
+                menuItem.icon = resources.getDrawable(R.drawable.ic_favorite_filled)
+            } else {
+                menuItem.icon = resources.getDrawable(R.drawable.ic_favorite)
+            }
+        }
     }
 
 }

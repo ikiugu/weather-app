@@ -47,4 +47,16 @@ class WeatherRepository(private val weatherDatabase: WeatherDatabase) {
         }
     }
 
+    suspend fun updateWeather() {
+        withContext(Dispatchers.IO) {
+            val weather = currWeather.value?.let {
+                weatherDatabase.weatherDao.getCurrentWeatherWithId(
+                    it.id
+                )
+            }
+
+            weather?.let { weatherDatabase.weatherDao.updateCurrentWeather(it.copy(favorite = !weather.favorite)) }
+        }
+    }
+
 }

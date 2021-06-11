@@ -19,15 +19,18 @@ data class CurrentWeather constructor(
     val weatherId: Long,
     val latitude: Double,
     val longitude: Double,
+    val favorite: Boolean = false,
     val created: Long = System.currentTimeMillis(),
 ) {
     companion object {
         fun CurrentWeather.asDomainModel(): ScreenWeather {
             return ScreenWeather(
+                id = this.id,
                 minTemp = this.minimumTemp,
                 temp = this.currentTemp,
                 maxTemp = this.maximumTemp,
-                weatherId = this.weatherId
+                weatherId = this.weatherId,
+                favorite = this.favorite
             )
         }
     }

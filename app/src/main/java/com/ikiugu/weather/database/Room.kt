@@ -17,6 +17,12 @@ interface WeatherDao {
     @Query("select * from currentWeather order by created desc Limit 1")
     fun getCurrentWeather() : LiveData<CurrentWeather>
 
+    @Update
+    fun updateCurrentWeather(weather: CurrentWeather)
+
+    @Query("select * from currentWeather where id == :id")
+    fun getCurrentWeatherWithId(id: Long) : CurrentWeather
+
 }
 
 

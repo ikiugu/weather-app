@@ -90,6 +90,13 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         )
     }
 
+    val favorite : LiveData<Boolean> = Transformations.map(currentWeatherTemp) {
+        when(it?.favorite) {
+            true -> true
+            else -> false
+        }
+    }
+
     var location = MutableLiveData<Location>()
 
     /*init {
@@ -114,6 +121,12 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     fun refreshWeather() {
         viewModelScope.launch {
             weatherRepository.getCurrentWeather(location.value?.latitude, location.value?.longitude)
+        }
+    }
+
+    fun updateWeatherItemToFavorites() {
+        viewModelScope.launch {
+            weatherRepository.updateWeather()
         }
     }
 
