@@ -2,6 +2,7 @@ package com.ikiugu.weather.utils
 
 import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 
@@ -24,4 +25,9 @@ fun showCorrectText(textView: TextView, weather: Any?) {
     if (weather != null) {
         textView.text = weather.toString()
     }
+}
+
+@BindingAdapter("setBackgroundColor")
+fun setBackgroundColor(view: LinearLayout, color: Int) {
+    view.setBackgroundColor(color)
 }
