@@ -74,7 +74,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                 "Cloudy".uppercase()
             }
             else -> {
-                "Sunny".uppercase()
+                "Default".uppercase()
             }
         }
     }
@@ -85,7 +85,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                 "Cloudy".uppercase() -> R.color.cloudy
                 "Rainy".uppercase() -> R.color.rainy
                 "Sunny".uppercase() -> R.color.sunny
-                else -> R.color.sunny
+                else -> R.color.purple_500
             }
         )
     }

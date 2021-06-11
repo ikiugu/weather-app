@@ -60,7 +60,7 @@ class HomeFragment : Fragment() {
         }
 
         homeViewModel.showSnackBarEvent.observe(viewLifecycleOwner) {
-            if(it) {
+            if (it) {
                 Snackbar.make(
                     requireActivity().findViewById(android.R.id.content),
                     getString(R.string.weather_update_success),
@@ -211,7 +211,13 @@ class HomeFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_refresh -> homeViewModel.refreshWeather()
+            R.id.action_refresh -> {
+                if (requestingLocationUpdates) {
+                    homeViewModel.refreshWeather()
+                } else {
+                    enableLocation()
+                }
+            }
         }
 
         return super.onOptionsItemSelected(item)

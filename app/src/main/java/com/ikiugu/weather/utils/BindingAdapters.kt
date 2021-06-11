@@ -15,6 +15,11 @@ fun hideViewIfNull(view: View, it: Any?) {
     view.visibility = if (it != null) View.VISIBLE else View.GONE
 }
 
+@BindingAdapter("showViewIfNull")
+fun showViewIfNull(view: View, it: Any?) {
+    view.visibility = if (it == null) View.VISIBLE else View.GONE
+}
+
 @BindingAdapter("showCorrectImage")
 fun showCorrectImage(imageView: ImageView, drawable: Int) {
     imageView.setImageResource(drawable)
