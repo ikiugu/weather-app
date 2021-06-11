@@ -14,7 +14,7 @@ interface WeatherDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertWeather(currentWeather: CurrentWeather)
 
-    @Query("select * from currentWeather")
+    @Query("select * from currentWeather order by created desc Limit 1")
     fun getCurrentWeather() : LiveData<CurrentWeather>
 
 }
