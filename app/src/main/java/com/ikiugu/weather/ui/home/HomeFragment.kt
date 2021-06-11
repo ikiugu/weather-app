@@ -10,6 +10,7 @@ import android.app.AlertDialog
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,8 +18,7 @@ import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.*
 import com.ikiugu.weather.MainActivity
 import com.ikiugu.weather.R
 import com.ikiugu.weather.databinding.FragmentHomeBinding
@@ -28,6 +28,11 @@ class HomeFragment : Fragment() {
     private lateinit var homeViewModel: HomeViewModel
     private val REQUEST_LOCATION_PERMISSION = 1
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var locationCallback: LocationCallback
+    private var requestingLocationUpdates = false
+    private lateinit var locationRequest: LocationRequest
+    private val UPDATE_INTERVAL = (10 * 1000 /* 10 secs */).toLong()
+    private val FASTEST_INTERVAL: Long = 2000 /* 2 sec */
 
 
     override fun onCreateView(
@@ -95,18 +100,17 @@ class HomeFragment : Fragment() {
     }
 
     private fun requestLocationPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             activity?.let {
-                ActivityCompat.requestPermissions(
-                    it,
+                requestPermissions(
                     arrayOf(
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_BACKGROUND_LOCATION
+                        Manifest.permission.ACCESS_FINE_LOCATION
                     ),
                     REQUEST_LOCATION_PERMISSION
                 )
             }
-        } else {
+        }
+        /*else {
             activity?.let {
                 ActivityCompat.requestPermissions(
                     it,
@@ -114,7 +118,7 @@ class HomeFragment : Fragment() {
                     REQUEST_LOCATION_PERMISSION
                 )
             }
-        }
+        }*/
     }
 
     @SuppressLint("MissingPermission")
@@ -133,14 +137,59 @@ class HomeFragment : Fragment() {
 
     @SuppressLint("MissingPermission")
     fun getCurrentLocation() {
+        requestingLocationUpdates = true
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
         fusedLocationClient.lastLocation.addOnSuccessListener { location ->
             if (location != null) {
                 val loc = Location(location.latitude, location.longitude)
                 homeViewModel.location.value = loc
             } else {
-                // request location updates here
+                locationCallback = object : LocationCallback() {
+                    override fun onLocationResult(locationResult: LocationResult?) {
+                        locationResult ?: return
+                        for (location in locationResult.locations) {
+                            if (location != null) {
+                                fusedLocationClient.removeLocationUpdates(locationCallback)
+                                val loc = Location(location.latitude, location.longitude)
+                                homeViewModel.location.value = loc
+                            }
+                        }
+                    }
+                }
             }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (requestingLocationUpdates) startLocationUpdates()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        stopLocationUpdates()
+    }
+
+    private fun stopLocationUpdates() {
+        if (this::fusedLocationClient.isInitialized) {
+            if(this::locationCallback.isInitialized) {
+                fusedLocationClient.removeLocationUpdates(locationCallback)
+            }
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    fun startLocationUpdates() {
+        if (this::locationCallback.isInitialized) {
+            locationRequest = LocationRequest()
+            locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+            locationRequest.interval = UPDATE_INTERVAL
+            locationRequest.fastestInterval = FASTEST_INTERVAL
+            fusedLocationClient.requestLocationUpdates(
+                locationRequest,
+                locationCallback,
+                Looper.getMainLooper()
+            )
         }
     }
 
