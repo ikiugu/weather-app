@@ -13,7 +13,9 @@ data class CurrentWeather constructor(
     @PrimaryKey
     val id: Long,
     val name: String,
-    val temperature: Double,
+    val minimumTemp: Double,
+    val currentTemp: Double,
+    val maximumTemp: Double,
     val weatherId: Long,
     val latitude: Double,
     val longitude: Double,
@@ -22,7 +24,9 @@ data class CurrentWeather constructor(
     companion object {
         fun CurrentWeather.asDomainModel(): ScreenWeather {
             return ScreenWeather(
-                temp = this.temperature,
+                minTemp = this.minimumTemp,
+                temp = this.currentTemp,
+                maxTemp = this.maximumTemp,
                 weatherId = this.weatherId
             )
         }

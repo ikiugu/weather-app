@@ -23,7 +23,9 @@ data class CurrentWeatherDTO(
             return com.ikiugu.weather.database.CurrentWeather(
                 id = this.id,
                 name = this.name,
-                temperature = this.main.temp,
+                minimumTemp = this.main.temp_min,
+                currentTemp = this.main.temp,
+                maximumTemp = this.main.temp_max,
                 weatherId = this.weather[0].id,
                 latitude = this.coord.lat,
                 longitude = this.coord.lon
