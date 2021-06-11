@@ -48,9 +48,9 @@ class WeatherRepository(private val weatherDatabase: WeatherDatabase) {
         _finishedLoading.value = true
     }
 
-    suspend fun getWeatherForecast() {
+    suspend fun getWeatherForecast(lat: Double?, lon: Double?) {
         withContext(Dispatchers.IO) {
-            val forecast = Network.weather.getWeatherForecast().await()
+            val forecast = Network.weather.getWeatherForecast(lat, lon).await()
             weatherDatabase.weatherDao.insertAll(*forecast.asDatabaseModel())
         }
 

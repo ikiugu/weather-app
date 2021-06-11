@@ -137,11 +137,8 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             location.asFlow().collect { location ->
                 weatherRepository.getCurrentWeather(location.latitude, location.longitude)
+                weatherRepository.getWeatherForecast(location.latitude, location.longitude)
             }
-        }
-
-        viewModelScope.launch {
-            weatherRepository.getWeatherForecast()
         }
     }
 

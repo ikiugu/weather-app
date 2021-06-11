@@ -25,9 +25,8 @@ interface WeatherService {
 
     @GET("data/2.5/forecast/daily")
     fun getWeatherForecast(
-        /*@Query("lat") latitude: Double?,
-        @Query("lon") longitude: Double?,*/
-        @Query("q") location: String = "Nairobi",
+        @Query("lat") latitude: Double?,
+        @Query("lon") longitude: Double?,
         @Query("units") units: String = "metric",
         @Query("appid") appId: String = "f9f3de845b9635080901d5575af1bb27",
         @Query("cnt") count: Int = 5
