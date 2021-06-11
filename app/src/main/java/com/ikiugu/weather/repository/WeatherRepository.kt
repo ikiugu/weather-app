@@ -6,6 +6,7 @@ import androidx.lifecycle.Transformations
 import com.ikiugu.weather.database.CurrentWeather.Companion.asDomainModel
 import com.ikiugu.weather.database.WeatherDatabase
 import com.ikiugu.weather.database.asDomainModel
+import com.ikiugu.weather.database.asOtherDomainModel
 import com.ikiugu.weather.domain.ScreenForecast
 import com.ikiugu.weather.domain.ScreenWeather
 import com.ikiugu.weather.network.CurrentWeatherDTO.Companion.asDatabaseModel
@@ -28,6 +29,11 @@ class WeatherRepository(private val weatherDatabase: WeatherDatabase) {
     val weatherForecast: LiveData<List<ScreenForecast>> =
         Transformations.map(weatherDatabase.weatherDao.getAllForecasts()) {
             it.asDomainModel()
+        }
+
+    val currWeatherFavorites: LiveData<List<ScreenWeather>> = Transformations
+        .map(weatherDatabase.weatherDao.getAllFavorites()) {
+            it.asOtherDomainModel()
         }
 
     private var _finishedLoading = MutableLiveData<Boolean>()
@@ -53,8 +59,6 @@ class WeatherRepository(private val weatherDatabase: WeatherDatabase) {
             val forecast = Network.weather.getWeatherForecast(lat, lon).await()
             weatherDatabase.weatherDao.insertAll(*forecast.asDatabaseModel())
         }
-
-        _finishedLoading.value = true
     }
 
     suspend fun updateWeather() {
@@ -74,6 +78,12 @@ class WeatherRepository(private val weatherDatabase: WeatherDatabase) {
                 }
 
             }
+        }
+    }
+
+    suspend fun getFavorites() {
+        withContext(Dispatchers.IO) {
+
         }
     }
 

@@ -40,6 +40,9 @@ interface WeatherDao {
 
     @Query("select * from forecast")
     fun getAllForecasts(): LiveData<List<Forecast>>
+
+    @Query("select * from currentWeather where favorite == 1")
+    fun getAllFavorites(): LiveData<List<CurrentWeather>>
 }
 
 

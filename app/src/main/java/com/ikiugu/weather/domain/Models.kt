@@ -8,6 +8,7 @@ import com.ikiugu.weather.utils.toDate
 
 data class ScreenWeather(
     val id: Long,
+    val name: String,
     val minTemp: Double,
     val temp: Double,
     val maxTemp: Double,

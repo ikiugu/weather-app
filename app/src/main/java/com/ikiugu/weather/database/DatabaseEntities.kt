@@ -27,6 +27,7 @@ data class CurrentWeather constructor(
         fun CurrentWeather.asDomainModel(): ScreenWeather {
             return ScreenWeather(
                 id = this.id,
+                name = this.name,
                 minTemp = this.minimumTemp,
                 temp = this.currentTemp,
                 maxTemp = this.maximumTemp,
@@ -34,6 +35,20 @@ data class CurrentWeather constructor(
                 favorite = this.favorite
             )
         }
+    }
+}
+
+fun List<CurrentWeather>.asOtherDomainModel(): List<ScreenWeather> {
+    return map {
+        ScreenWeather(
+            id = it.id,
+            name = it.name,
+            minTemp = it.minimumTemp,
+            temp = it.currentTemp,
+            maxTemp = it.maximumTemp,
+            weatherId = it.weatherId,
+            favorite = it.favorite
+        )
     }
 }
 
