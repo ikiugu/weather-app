@@ -1,6 +1,7 @@
 package com.ikiugu.weather.repository
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.ikiugu.weather.database.CurrentWeather.Companion.asDomainModel
 import com.ikiugu.weather.database.WeatherDatabase
@@ -21,17 +22,23 @@ class WeatherRepository(private val weatherDatabase: WeatherDatabase) {
             it?.asDomainModel()
         }
 
+    private var _finishedLoading = MutableLiveData<Boolean>()
+    val finishedLoading: LiveData<Boolean> get() = _finishedLoading
+
     suspend fun getCurrentWeather(lat: Double?, lon: Double?) {
         withContext(Dispatchers.IO) {
             val weather =
                 Network.weather.getCurrentWeather(lat, lon).await()
             weatherDatabase.weatherDao.insertWeather(weather.asDatabaseModel())
         }
+
+        _finishedLoading.value = true
     }
 
     suspend fun getWeatherForecast() {
         withContext(Dispatchers.IO) {
             val forecast = Network.weather.getWeatherForecast().await()
+            _finishedLoading.value = true
         }
     }
 

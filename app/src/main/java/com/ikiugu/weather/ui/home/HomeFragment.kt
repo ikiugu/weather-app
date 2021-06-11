@@ -17,6 +17,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.location.*
+import com.google.android.material.snackbar.Snackbar
 import com.ikiugu.weather.MainActivity
 import com.ikiugu.weather.R
 import com.ikiugu.weather.databinding.FragmentHomeBinding
@@ -55,6 +56,16 @@ class HomeFragment : Fragment() {
         homeViewModel.appColors.observe(viewLifecycleOwner) { color ->
             if (color != null) {
                 (activity as MainActivity).handleAppAndStatusBar(color)
+            }
+        }
+
+        homeViewModel.showSnackBarEvent.observe(viewLifecycleOwner) {
+            if(it) {
+                Snackbar.make(
+                    requireActivity().findViewById(android.R.id.content),
+                    getString(R.string.weather_update_success),
+                    Snackbar.LENGTH_SHORT // How long to display the message.
+                ).show()
             }
         }
 

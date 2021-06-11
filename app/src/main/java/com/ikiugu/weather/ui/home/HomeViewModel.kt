@@ -98,6 +98,8 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         }
     }*/
 
+    var showSnackBarEvent = weatherRepository.finishedLoading
+
     init {
         viewModelScope.launch {
             location.asFlow().collect { location ->
