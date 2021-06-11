@@ -25,7 +25,12 @@ class WeatherRepository(private val weatherDatabase: WeatherDatabase) {
     private var _finishedLoading = MutableLiveData<Boolean>()
     val finishedLoading: LiveData<Boolean> get() = _finishedLoading
 
+    private var _startedLoading = MutableLiveData<Boolean>()
+    val startedLoading: LiveData<Boolean> get() = _startedLoading
+
     suspend fun getCurrentWeather(lat: Double?, lon: Double?) {
+        _startedLoading.value = true
+
         withContext(Dispatchers.IO) {
             val weather =
                 Network.weather.getCurrentWeather(lat, lon).await()

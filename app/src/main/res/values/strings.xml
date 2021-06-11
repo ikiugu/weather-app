@@ -14,6 +14,7 @@
     <string name="temperature_min">min</string>
     <string name="temperature_current">Current</string>
     <string name="temperature_max">max</string>
+    <string name="weather_update_loading">Weather loading</string>
     <string name="weather_update_success">Weather updated</string>
     <string name="permission_location_dialog_title">Location Permission</string>
     <string name="permission_location_dialog_description">This app relies on your location to get accurate weather data.</string>

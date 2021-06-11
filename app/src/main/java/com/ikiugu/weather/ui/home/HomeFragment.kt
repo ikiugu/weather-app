@@ -59,12 +59,22 @@ class HomeFragment : Fragment() {
             }
         }
 
-        homeViewModel.showSnackBarEvent.observe(viewLifecycleOwner) {
+        homeViewModel.showSnackBarForBeginApiCall.observe(viewLifecycleOwner) {
+            if (it) {
+                Snackbar.make(
+                    requireActivity().findViewById(android.R.id.content),
+                    getString(R.string.weather_update_loading),
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            }
+        }
+
+        homeViewModel.showSnackBarForCompletedApiCall.observe(viewLifecycleOwner) {
             if (it) {
                 Snackbar.make(
                     requireActivity().findViewById(android.R.id.content),
                     getString(R.string.weather_update_success),
-                    Snackbar.LENGTH_SHORT // How long to display the message.
+                    Snackbar.LENGTH_SHORT
                 ).show()
             }
         }

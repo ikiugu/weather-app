@@ -98,7 +98,9 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         }
     }*/
 
-    var showSnackBarEvent = weatherRepository.finishedLoading
+    var showSnackBarForBeginApiCall = weatherRepository.startedLoading
+
+    var showSnackBarForCompletedApiCall = weatherRepository.finishedLoading
 
     init {
         viewModelScope.launch {
