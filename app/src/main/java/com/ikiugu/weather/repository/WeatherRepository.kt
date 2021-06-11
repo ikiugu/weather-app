@@ -21,7 +21,7 @@ class WeatherRepository(private val weatherDatabase: WeatherDatabase) {
             it?.asDomainModel()
         }
 
-    suspend fun getCurrentWeather(lat: Double, lon: Double) {
+    suspend fun getCurrentWeather(lat: Double?, lon: Double?) {
         withContext(Dispatchers.IO) {
             val weather =
                 Network.weather.getCurrentWeather(lat, lon).await()

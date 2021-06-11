@@ -11,9 +11,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Looper
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -61,6 +59,8 @@ class HomeFragment : Fragment() {
         }
 
         enableLocation()
+
+        setHasOptionsMenu(true)
 
         return binding.root
     }
@@ -172,7 +172,7 @@ class HomeFragment : Fragment() {
 
     private fun stopLocationUpdates() {
         if (this::fusedLocationClient.isInitialized) {
-            if(this::locationCallback.isInitialized) {
+            if (this::locationCallback.isInitialized) {
                 fusedLocationClient.removeLocationUpdates(locationCallback)
             }
         }
@@ -191,6 +191,19 @@ class HomeFragment : Fragment() {
                 Looper.getMainLooper()
             )
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.main, menu)
+        return super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_refresh -> homeViewModel.refreshWeather()
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
 }

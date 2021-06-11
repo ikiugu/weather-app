@@ -17,8 +17,8 @@ interface WeatherService {
 
     @GET("data/2.5/weather")
     fun getCurrentWeather(
-        @Query("lat") latitude: Double,
-        @Query("lon") longitude: Double,
+        @Query("lat") latitude: Double?,
+        @Query("lon") longitude: Double?,
         @Query("units") units: String = "metric",
         @Query("appid") appId: String = "f9f3de845b9635080901d5575af1bb27"
     ): Deferred<CurrentWeatherDTO>
