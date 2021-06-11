@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.ikiugu.weather.database.CurrentWeather.Companion.asDomainModel
 import com.ikiugu.weather.database.WeatherDatabase
+import com.ikiugu.weather.database.asDomainModel
+import com.ikiugu.weather.domain.ScreenForecast
 import com.ikiugu.weather.domain.ScreenWeather
 import com.ikiugu.weather.network.CurrentWeatherDTO.Companion.asDatabaseModel
 import com.ikiugu.weather.network.ForecastDTO.Companion.asDatabaseModel
@@ -21,6 +23,11 @@ class WeatherRepository(private val weatherDatabase: WeatherDatabase) {
     val currWeather: LiveData<ScreenWeather> = Transformations
         .map(weatherDatabase.weatherDao.getCurrentWeather()) {
             it?.asDomainModel()
+        }
+
+    val weatherForecast: LiveData<List<ScreenForecast>> =
+        Transformations.map(weatherDatabase.weatherDao.getAllForecasts()) {
+            it.asDomainModel()
         }
 
     private var _finishedLoading = MutableLiveData<Boolean>()

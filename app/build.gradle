@@ -76,8 +76,11 @@ dependencies {
     implementation "androidx.room:room-runtime:$room"
     kapt "androidx.room:room-compiler:$room"
 
-    implementation 'com.google.android.gms:play-services-location:18.0.0'
+    // Play services location
+    implementation "com.google.android.gms:play-services-location:$play_location"
 
+    // Joda time library
+    implementation "joda-time:joda-time:$joda"
 
     // Testing
     testImplementation 'junit:junit:4.+'

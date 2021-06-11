@@ -2,6 +2,7 @@ package com.ikiugu.weather.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.ikiugu.weather.domain.ScreenForecast
 import com.ikiugu.weather.domain.ScreenWeather
 
 /**
@@ -39,8 +40,18 @@ data class CurrentWeather constructor(
 @Entity(tableName = "forecast")
 data class Forecast constructor(
     @PrimaryKey
-    val dt : Long,
+    val dt: Long,
     val cityName: String,
-    val temp : Double,
+    val temp: Double,
     val weatherId: Long
 )
+
+fun List<Forecast>.asDomainModel(): List<ScreenForecast> {
+    return map {
+        ScreenForecast(
+            dt = it.dt,
+            temp = it.temp,
+            weatherId = it.weatherId
+        )
+    }
+}

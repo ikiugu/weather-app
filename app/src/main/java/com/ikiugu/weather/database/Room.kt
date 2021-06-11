@@ -37,6 +37,9 @@ interface WeatherDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(vararg weatherItems: Forecast)
+
+    @Query("select * from forecast")
+    fun getAllForecasts(): LiveData<List<Forecast>>
 }
 
 

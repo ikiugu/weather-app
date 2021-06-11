@@ -5,6 +5,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 
 /**
  * Created by Alfred Ikiugu on 10/06/2021
@@ -34,5 +35,10 @@ fun showCorrectText(textView: TextView, weather: Any?) {
 
 @BindingAdapter("setBackgroundColor")
 fun setBackgroundColor(view: LinearLayout, color: Int) {
+    view.setBackgroundColor(color)
+}
+
+@BindingAdapter("setRecyclerViewBackground")
+fun setRecyclerViewBackground(view: RecyclerView, color: Int) {
     view.setBackgroundColor(color)
 }
