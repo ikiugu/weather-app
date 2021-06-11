@@ -92,12 +92,11 @@ class HomeFragment : Fragment() {
                 } == true
             ) {
                 AlertDialog.Builder(context)
-                    .setTitle("Location Permission Needed")
-                    .setMessage("This app needs the Location permission, please accept to use location functionality")
+                    .setTitle(getString(R.string.permission_location_dialog_title))
+                    .setMessage(getString(R.string.permission_location_dialog_description))
                     .setPositiveButton(
-                        "OK"
+                        getString(R.string.ok)
                     ) { _, _ ->
-                        //Prompt the user once explanation has been shown
                         requestLocationPermission()
                     }
                     .create()
