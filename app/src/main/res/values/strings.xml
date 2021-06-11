@@ -20,4 +20,6 @@
     <string name="permission_location_dialog_title">Location Permission</string>
     <string name="permission_location_dialog_description">This app relies on your location to get accurate weather data.</string>
     <string name="ok">OK</string>
+    <string name="favorite_added">Favorite Added</string>
+    <string name="favorite_removed">Favorite Removed</string>
 </resources>

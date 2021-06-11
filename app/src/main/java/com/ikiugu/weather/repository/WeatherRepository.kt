@@ -55,8 +55,17 @@ class WeatherRepository(private val weatherDatabase: WeatherDatabase) {
                 )
             }
 
-            weather?.let { weatherDatabase.weatherDao.updateCurrentWeather(it.copy(favorite = !weather.favorite)) }
+
+            if (weather != null) {
+                if (weather.favorite == true) {
+                    weatherDatabase.weatherDao.updateCurrentWeather(weather.copy(favorite = false))
+                } else {
+                    weatherDatabase.weatherDao.updateCurrentWeather(weather.copy(favorite = true))
+                }
+
+            }
         }
     }
 
 }
+

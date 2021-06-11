@@ -33,6 +33,7 @@ class HomeFragment : Fragment() {
     private val UPDATE_INTERVAL = (10 * 1000 /* 10 secs */).toLong()
     private val FASTEST_INTERVAL: Long = 2000 /* 2 sec */
     private lateinit var mMenu: Menu
+    private var itemFavorite: Boolean? = null
 
 
     override fun onCreateView(
@@ -62,26 +63,29 @@ class HomeFragment : Fragment() {
 
         homeViewModel.showSnackBarForBeginApiCall.observe(viewLifecycleOwner) {
             if (it) {
-                Snackbar.make(
-                    requireActivity().findViewById(android.R.id.content),
-                    getString(R.string.weather_update_loading),
-                    Snackbar.LENGTH_SHORT
-                ).show()
+                showSnackBar(R.string.weather_update_loading)
             }
         }
 
         homeViewModel.showSnackBarForCompletedApiCall.observe(viewLifecycleOwner) {
             if (it) {
-                Snackbar.make(
-                    requireActivity().findViewById(android.R.id.content),
-                    getString(R.string.weather_update_success),
-                    Snackbar.LENGTH_SHORT
-                ).show()
+                showSnackBar(R.string.weather_update_success)
             }
         }
 
         homeViewModel.favorite.observe(viewLifecycleOwner) { favorite ->
-            changeIcon(favorite)
+            if (favorite != null) {
+                changeIcon(favorite)
+
+                itemFavorite = favorite
+
+                if (favorite) {
+                    showSnackBar(R.string.favorite_added)
+                } else {
+                    showSnackBar(R.string.favorite_removed)
+                }
+            }
+
         }
 
         enableLocation()
@@ -89,6 +93,14 @@ class HomeFragment : Fragment() {
         setHasOptionsMenu(true)
 
         return binding.root
+    }
+
+    fun showSnackBar(id: Int) {
+        Snackbar.make(
+            requireActivity().findViewById(android.R.id.content),
+            getString(id),
+            Snackbar.LENGTH_SHORT
+        ).show()
     }
 
     fun enableLocation() {
@@ -223,6 +235,8 @@ class HomeFragment : Fragment() {
 
         mMenu = menu
 
+        changeIcon(itemFavorite)
+
         return super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -242,12 +256,12 @@ class HomeFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
-    fun changeIcon(favorite: Boolean) {
+    fun changeIcon(favorite: Boolean?) {
         if (this::mMenu.isInitialized) {
             var menuItem = mMenu.findItem(R.id.action_favorite)
-            if(favorite) {
+            if (favorite == true) {
                 menuItem.icon = resources.getDrawable(R.drawable.ic_favorite_filled)
-            } else {
+            } else if (favorite == false) {
                 menuItem.icon = resources.getDrawable(R.drawable.ic_favorite)
             }
         }

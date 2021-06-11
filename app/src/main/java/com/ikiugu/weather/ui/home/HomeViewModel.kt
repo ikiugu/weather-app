@@ -90,10 +90,11 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         )
     }
 
-    val favorite : LiveData<Boolean> = Transformations.map(currentWeatherTemp) {
-        when(it?.favorite) {
+    val favorite: LiveData<Boolean?> = Transformations.map(currentWeatherTemp) {
+        when (it?.favorite) {
             true -> true
-            else -> false
+            false -> false
+            else -> null
         }
     }
 

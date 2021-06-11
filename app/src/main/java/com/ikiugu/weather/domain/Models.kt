@@ -10,5 +10,5 @@ data class ScreenWeather(
     val temp : Double,
     val maxTemp : Double,
     val weatherId: Long,
-    val favorite : Boolean
+    val favorite : Boolean?
 )
