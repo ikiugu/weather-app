@@ -90,6 +90,17 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         )
     }
 
+    val appBarColors: LiveData<Int> = Transformations.map(weatherText) {
+        application.applicationContext.resources.getColor(
+            when (it) {
+                "Cloudy".uppercase() -> R.color.cloudy_bars
+                "Rainy".uppercase() -> R.color.rainy_bars
+                "Sunny".uppercase() -> R.color.sunny_bars
+                else -> R.color.purple_500
+            }
+        )
+    }
+
     val favorite: LiveData<Boolean?> = Transformations.map(currentWeatherTemp) {
         when (it?.favorite) {
             true -> true

@@ -55,7 +55,7 @@ class HomeFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = homeViewModel
 
-        homeViewModel.appColors.observe(viewLifecycleOwner) { color ->
+        homeViewModel.appBarColors.observe(viewLifecycleOwner) { color ->
             if (color != null) {
                 (activity as MainActivity).handleAppAndStatusBar(color)
             }
@@ -79,11 +79,11 @@ class HomeFragment : Fragment() {
 
                 itemFavorite = favorite
 
-                if (favorite) {
+               /* if (favorite) {
                     showSnackBar(R.string.favorite_added)
                 } else {
                     showSnackBar(R.string.favorite_removed)
-                }
+                }*/
             }
 
         }
@@ -259,10 +259,12 @@ class HomeFragment : Fragment() {
     fun changeIcon(favorite: Boolean?) {
         if (this::mMenu.isInitialized) {
             var menuItem = mMenu.findItem(R.id.action_favorite)
-            if (favorite == true) {
-                menuItem.icon = resources.getDrawable(R.drawable.ic_favorite_filled)
-            } else if (favorite == false) {
-                menuItem.icon = resources.getDrawable(R.drawable.ic_favorite)
+            if (menuItem != null) {
+                if (favorite == true) {
+                    menuItem.icon = resources.getDrawable(R.drawable.ic_favorite_filled)
+                } else if (favorite == false) {
+                    menuItem.icon = resources.getDrawable(R.drawable.ic_favorite)
+                }
             }
         }
     }
