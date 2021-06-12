@@ -68,13 +68,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
         }
 
-        /*homeViewModel.favorite.observe(viewLifecycleOwner) { favorite ->
+        homeViewModel.favorite.observe(viewLifecycleOwner) { favorite ->
             if (favorite != null) {
                 changeIcon(favorite)
                 itemFavorite = favorite
-                showSnackBar(R.string.favorite_added)
+                /*showSnackBar(R.string.favorite_added)*/
             }
-        }*/
+        }
 
         enableLocation()
 
