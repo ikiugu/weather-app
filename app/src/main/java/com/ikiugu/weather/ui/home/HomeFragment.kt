@@ -56,12 +56,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
         }
 
-        homeViewModel.showSnackBarForBeginApiCall.observe(viewLifecycleOwner) {
-            if (it) {
-                showSnackBar(R.string.weather_update_loading)
-            }
-        }
-
         homeViewModel.showSnackBarForCompletedApiCall.observe(viewLifecycleOwner) {
             if (it) {
                 showSnackBar(R.string.weather_update_success)
