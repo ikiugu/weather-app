@@ -17,6 +17,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:itemCount="10"
-            tools:listitem="@layout/forecast_list_item"/>
+            tools:listitem="@layout/favorites_list_item"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

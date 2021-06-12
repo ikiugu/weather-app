@@ -22,4 +22,6 @@
     <string name="ok">OK</string>
     <string name="favorite_added">Favorite Added</string>
     <string name="favorite_removed">Favorite Removed</string>
+    <string name="location">Location: %s</string>
+    <string name="last_temp">Last Temperature: %s \u00B0</string>
 </resources>
