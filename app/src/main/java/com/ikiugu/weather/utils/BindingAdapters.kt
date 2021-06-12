@@ -1,6 +1,5 @@
 package com.ikiugu.weather.utils
 
-import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -11,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
  * Created by Alfred Ikiugu on 10/06/2021
  */
 
-@BindingAdapter("hideViewIfNull")
+/*@BindingAdapter("hideViewIfNull")
 fun hideViewIfNull(view: View, it: Any?) {
     view.visibility = if (it != null) View.VISIBLE else View.GONE
 }
@@ -19,7 +18,7 @@ fun hideViewIfNull(view: View, it: Any?) {
 @BindingAdapter("showViewIfNull")
 fun showViewIfNull(view: View, it: Any?) {
     view.visibility = if (it == null) View.VISIBLE else View.GONE
-}
+}*/
 
 @BindingAdapter("showCorrectImage")
 fun showCorrectImage(imageView: ImageView, drawable: Int) {

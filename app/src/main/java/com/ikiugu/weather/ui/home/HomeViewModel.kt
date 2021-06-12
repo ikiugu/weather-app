@@ -20,7 +20,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     private val weatherRepository = WeatherRepository(database)
 
     val currentWeatherTemp = weatherRepository.currWeather
-    var weatherForecast = weatherRepository.weatherForecast
+    val weatherForecast = weatherRepository.weatherForecast
 
     val weatherIcon: LiveData<Int> = Transformations.map(currentWeatherTemp) {
         when (it?.weatherId) {
@@ -75,7 +75,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                 "Cloudy".uppercase()
             }
             else -> {
-                "Default".uppercase()
+                "No Location".uppercase()
             }
         }
     }
@@ -86,7 +86,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                 "Cloudy".uppercase() -> R.color.cloudy
                 "Rainy".uppercase() -> R.color.rainy
                 "Sunny".uppercase() -> R.color.sunny
-                else -> R.color.purple_500
+                else -> R.color.sunny
             }
         )
     }
@@ -108,7 +108,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                 "Cloudy".uppercase() -> R.color.cloudy_bars
                 "Rainy".uppercase() -> R.color.rainy_bars
                 "Sunny".uppercase() -> R.color.sunny_bars
-                else -> R.color.purple_500
+                else -> R.color.sunny_bars
             }
         )
     }

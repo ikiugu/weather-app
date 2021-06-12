@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        handleAppAndStatusBar(R.color.purple_500)
+        handleAppAndStatusBar(R.color.sunny_bars)
     }
 
     override fun onSupportNavigateUp(): Boolean {

@@ -1,72 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-    <data>
-        <variable
-            name="forecastItem"
-            type="com.ikiugu.weather.domain.ScreenForecast" />
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/weatherStatusImage">
 
-    </data>
 
-    <LinearLayout android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingRight="15dp"
-        android:paddingLeft="15dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/weatherStatusImage"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:weightSum="3">
 
 
         <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal"
-            android:weightSum="3">
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
 
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    style="@style/temp_row_style_bottom_item"
-                    android:layout_gravity="start"
-                    android:text="@{forecastItem.dayOfTheWeek}"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/forecastIcon"
-                    style="@style/temp_row_style_bottom_item"
-                    android:layout_gravity="center"
-                    android:src="@drawable/clear"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    style="@style/temp_row_style_bottom_item"
-                    android:layout_gravity="end"
-                    android:text="@{@string/degree_text(String.valueOf(forecastItem.temp))}" />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/dayOfTheWeek"
+                style="@style/temp_row_style_bottom_item"
+                android:layout_gravity="start" />
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/forecastIcon"
+                style="@style/temp_row_style_bottom_item"
+                android:layout_gravity="center"
+                android:src="@drawable/clear" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/forecastTemperature"
+                style="@style/temp_row_style_bottom_item"
+                android:layout_gravity="end"
+                android:text="@{@string/degree_text(String.valueOf(forecastItem.temp))}" />
+        </LinearLayout>
     </LinearLayout>
-</layout>
+
+</LinearLayout>

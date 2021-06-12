@@ -41,7 +41,7 @@ private val moshi = Moshi.Builder()
 
 object Network {
     private val retrofit = Retrofit.Builder()
-        .baseUrl("http://api.openweathermap.org/")
+        .baseUrl("https://api.openweathermap.org/")
         .addConverterFactory(MoshiConverterFactory.create(moshi))
         .addCallAdapterFactory(CoroutineCallAdapterFactory())
         .build()
